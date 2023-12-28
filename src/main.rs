@@ -1,14 +1,14 @@
+mod backend;
 mod state;
-mod todo;
 
 use actix_cors::Cors;
 use actix_web::web;
 use actix_web::{web::Data, App, HttpServer};
+use backend::controller::{healthcheck, not_found};
+use backend::database::postgres::TodoPostgresRespository;
 use dotenv::dotenv;
 use state::AppState;
 use std::env;
-use todo::controller::{healthcheck, not_found};
-use todo::database::postgres::TodoPostgresRespository;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(app_data.clone())
-            .configure(todo::controller::config)
+            .configure(backend::controller::config)
             .service(healthcheck)
             .default_service(web::route().to(not_found))
             .wrap(actix_web::middleware::Logger::default())

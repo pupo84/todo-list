@@ -1,5 +1,5 @@
-use super::todo::database::memory::TodoMemoryRepository;
-use super::todo::database::spec::TodoRepository;
+use super::backend::database::memory::TodoMemoryRepository;
+use super::backend::database::spec::TodoRepository;
 use std::sync::Arc;
 use std::sync::Mutex;
 

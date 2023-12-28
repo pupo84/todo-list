@@ -1,4 +1,4 @@
-use crate::todo::database::schema::todos;
+use crate::backend::database::schema::todos;
 use chrono::prelude::Utc;
 use chrono::NaiveDateTime;
 use diesel::{deserialize::Queryable, Insertable, Selectable};
@@ -17,9 +17,9 @@ pub struct Todo {
 
 #[allow(dead_code)]
 impl Todo {
-    pub fn new(title: String) -> Todo {
+    pub fn new(title: String) -> Self {
         let now = Utc::now().naive_utc();
-        Todo {
+        Self {
             id: Uuid::new_v4(),
             title: title,
             completed: false,
