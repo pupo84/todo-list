@@ -16,3 +16,4 @@ async-trait = "0.1.75"
 dotenv = "0.15.0"
 diesel = { version = "2.1.4", features = ["r2d2", "postgres", "chrono", "uuid"] }
 diesel_migrations = "2.1.0"
+actix-cors = "0.6.5"

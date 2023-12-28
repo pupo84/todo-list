@@ -1,5 +1,6 @@
 mod todo;
 
+use actix_cors::Cors;
 use actix_web::web;
 use actix_web::{web::Data, App, HttpServer};
 use dotenv::dotenv;
@@ -51,6 +52,7 @@ async fn main() -> std::io::Result<()> {
             .service(healthcheck)
             .default_service(web::route().to(not_found))
             .wrap(actix_web::middleware::Logger::default())
+            .wrap(Cors::permissive())
     })
     .bind(("127.0.0.1", 8080))?
     .run()
