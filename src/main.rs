@@ -1,35 +1,14 @@
+mod state;
 mod todo;
 
 use actix_cors::Cors;
 use actix_web::web;
 use actix_web::{web::Data, App, HttpServer};
 use dotenv::dotenv;
+use state::AppState;
 use std::env;
-use std::sync::Arc;
-use std::sync::Mutex;
 use todo::controller::{healthcheck, not_found};
-use todo::database::memory::TodoMemoryRepository;
 use todo::database::postgres::TodoPostgresRespository;
-use todo::database::spec::TodoRepository;
-
-pub struct AppState {
-    data: Arc<Mutex<dyn TodoRepository>>,
-}
-
-impl AppState {
-    pub fn new() -> Self {
-        AppState {
-            data: Arc::new(Mutex::new(TodoMemoryRepository::new())),
-        }
-    }
-
-    pub fn assign<T>(&mut self, data: T)
-    where
-        T: TodoRepository + 'static,
-    {
-        self.data = Arc::new(Mutex::new(data));
-    }
-}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
